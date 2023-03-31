@@ -8,7 +8,7 @@ const initialState: UserState = {
   value: 0,
 };
 
-export const userSlice = createSlice({
+export const counterSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
@@ -16,6 +16,6 @@ export const userSlice = createSlice({
   },
 });
 
-export const {clearUserState} = userSlice.actions;
+export const {clearUserState} = counterSlice.actions;
 
-export default userSlice.reducer;
+export default counterSlice.reducer;

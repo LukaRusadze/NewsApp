@@ -1,13 +1,26 @@
 import {NavigationContainer} from '@react-navigation/native';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import AfterAuth from './AfterAuth';
 import BeforeAuthStack from './BeforeAuth';
+import auth from '@react-native-firebase/auth';
 
 const Navigation = () => {
-  const isSignedIn = true;
+  const [isSignedIn, setIsSignedIn] = useState(false);
+
+  useEffect(() => {
+    const subscriber = auth().onAuthStateChanged(user => {
+      if (user) {
+        setIsSignedIn(true);
+      } else {
+        setIsSignedIn(false);
+      }
+    });
+    return subscriber;
+  }, []);
+
   return (
     <NavigationContainer>
-      {isSignedIn ? <BeforeAuthStack /> : <AfterAuth />}
+      {isSignedIn ? <AfterAuth /> : <BeforeAuthStack />}
     </NavigationContainer>
   );
 };

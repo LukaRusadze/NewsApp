@@ -18,8 +18,7 @@ type Props = BeforeAuthScreenProps<'Login'>;
 const LoginScreen = ({}: Props) => {
   const onGoogleSignIn = async () => {
     try {
-      const {user} = await SignInProviders.Google();
-      console.log(user);
+      await SignInProviders.Google();
     } catch (error) {
       console.warn(error);
     }
@@ -27,8 +26,7 @@ const LoginScreen = ({}: Props) => {
 
   const onFacebookSignIn = async () => {
     try {
-      const {user} = await SignInProviders.Facebook();
-      console.log(user);
+      await SignInProviders.Facebook();
     } catch (error) {
       console.warn(error);
     }
