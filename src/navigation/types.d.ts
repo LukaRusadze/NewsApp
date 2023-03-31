@@ -5,7 +5,8 @@ import {
 } from '@react-navigation/native-stack';
 
 type BeforeAuthStackParamList = {
-  Welcome: undefined;
+  Login: undefined;
+  Register: undefined;
 };
 
 type AfterAuthStackParamList = {

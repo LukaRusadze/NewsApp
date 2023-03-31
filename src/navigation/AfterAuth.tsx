@@ -1,6 +1,6 @@
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React from 'react';
-import NewsScreen from '../screens/NewsScreen';
+import NewsScreen from '../screens/AfterAuth/NewsScreen';
 import {AfterAuthStackParamList} from './types';
 
 const Stack = createNativeStackNavigator<AfterAuthStackParamList>();

@@ -1,6 +1,6 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import {AfterAuthScreenProps} from '../../navigation/types';
+import {AfterAuthScreenProps} from '../../../navigation/types';
 
 type Props = AfterAuthScreenProps<'News'>;
 
