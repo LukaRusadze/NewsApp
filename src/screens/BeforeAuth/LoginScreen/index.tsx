@@ -6,6 +6,7 @@ import {
   GoogleSigninButton,
 } from '@react-native-google-signin/google-signin';
 import {SignInProviders} from '../../../utils/SignInProviders';
+import {Button} from '@rneui/base';
 
 GoogleSignin.configure({
   webClientId:
@@ -24,8 +25,18 @@ const LoginScreen = ({}: Props) => {
     }
   };
 
+  const onFacebookSignIn = async () => {
+    try {
+      const {user} = await SignInProviders.Facebook();
+      console.log(user);
+    } catch (error) {
+      console.warn(error);
+    }
+  };
+
   return (
     <View style={styles.container}>
+      <Button title={'Facebook Sign In'} onPress={onFacebookSignIn} />
       <GoogleSigninButton onPress={onGoogleSignIn} />
     </View>
   );

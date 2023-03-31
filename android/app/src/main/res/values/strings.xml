@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">NewsApp</string>
+    <string name="facebook_app_id">1406475766754546</string>
+    <string name="facebook_client_token">575e0e7cd30de48ec9208d54e84c6e24</string>
 </resources>
