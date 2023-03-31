@@ -7,14 +7,22 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:331868612385:android:9a4e8c13bfd85f161d0060",
+        "mobilesdk_app_id": "1:331868612385:android:19b1f84b0a4dda9b1d0060",
         "android_client_info": {
-          "package_name": "com.newsapp"
+          "package_name": "com.lukarusadze.newsapp"
         }
       },
       "oauth_client": [
         {
-          "client_id": "331868612385-9r44ncvhmrt47ei8nvqcu2advli42t0s.apps.googleusercontent.com",
+          "client_id": "331868612385-eho4la00aa91sdrin5h15aqdvaqk8nh1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.lukarusadze.newsapp",
+            "certificate_hash": "5f91f96ef6197f7c0464816c1582449576a864dd"
+          }
+        },
+        {
+          "client_id": "331868612385-5214kgfhet2fg4novf0ctfjsbpebpdc2.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
@@ -27,8 +35,15 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "331868612385-9r44ncvhmrt47ei8nvqcu2advli42t0s.apps.googleusercontent.com",
+              "client_id": "331868612385-5214kgfhet2fg4novf0ctfjsbpebpdc2.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "331868612385-9vjn5bmk982pr6v9feictbsagra28kab.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "org.reactjs.native.example.NewsApp"
+              }
             }
           ]
         }

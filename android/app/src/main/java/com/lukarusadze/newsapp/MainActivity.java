@@ -1,4 +1,4 @@
-package com.newsapp;
+package com.lukarusadze.newsapp;
 
 import android.os.Bundle;
 import com.facebook.react.ReactActivity;
