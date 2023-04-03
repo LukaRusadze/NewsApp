@@ -6,10 +6,18 @@ import {
   Text,
   View,
 } from 'react-native';
-import React, {memo, useState} from 'react';
+import React, {memo, useMemo, useRef, useState} from 'react';
 import {Image} from 'react-native';
 import WebView from 'react-native-webview';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
+import {Header} from '@rneui/base';
+import {Input} from '@rneui/base';
+import {
+  useAddCommentToArticleMutation,
+  useGetArticleDataQuery,
+} from '../../store/features/firebaseApi/firebaseSlice';
+import {nanoid} from '@reduxjs/toolkit';
+import getUuidByString from 'uuid-by-string';
 
 interface Props {
   article: Article;
@@ -19,13 +27,43 @@ const ArticleDisplay = ({
   article: {title, description, urlToImage, url},
 }: Props) => {
   const [modal, setModal] = useState(false);
-  const [comments, setComments] = useState(false);
+  const [commentsModal, setCommentsModal] = useState(false);
+  const articleId = useRef(getUuidByString(url));
+  const [input, setInput] = useState('');
+  const [addComment] = useAddCommentToArticleMutation();
+
+  const {data} = useGetArticleDataQuery(articleId.current);
+
+  const comments = useMemo(
+    () => (data ? Object.values(data.comments) : []),
+    [data],
+  );
 
   const openModal = () => setModal(true);
   const closeModal = () => setModal(false);
 
-  const openComments = () => setComments(true);
-  const closeComments = () => setComments(false);
+  const openComments = () => setCommentsModal(true);
+  const closeComments = () => setCommentsModal(false);
+
+  const onCommentPress = async () => {
+    try {
+      const commentId = nanoid();
+      await addComment({
+        comment: {
+          articleId: articleId.current,
+          commentId,
+          parentCommentId: '',
+          replies: [],
+          value: input,
+        },
+      }).unwrap();
+      setInput('');
+    } catch (error) {
+      console.warn(error);
+    }
+  };
+
+  // const onChangeText = (text: string) => (valueRef.current = text);
 
   return (
     <Pressable onPress={openModal} style={styles.container}>
@@ -38,8 +76,9 @@ const ArticleDisplay = ({
       ) : null}
       <Text>{description}</Text>
       <View style={styles.commentsContainer}>
-        <Pressable onPress={openComments}>
+        <Pressable style={styles.commentContent} onPress={openComments}>
           <EvilIcons name="comment" size={24} color="black" />
+          <Text style={styles.commentsText}>{comments.length}</Text>
         </Pressable>
       </View>
       {modal ? (
@@ -50,11 +89,30 @@ const ArticleDisplay = ({
           <WebView originWhitelist={['*']} source={{uri: url}} />
         </Modal>
       ) : null}
-      {comments ? (
+      {commentsModal ? (
         <Modal
           onRequestClose={closeComments}
           animationType="slide"
-          presentationStyle="pageSheet"></Modal>
+          presentationStyle="pageSheet">
+          <Header
+            centerComponent={{text: 'Comments', style: {color: 'white'}}}
+          />
+          {comments.map(item => (
+            <Text>{item.value}</Text>
+          ))}
+          <View style={styles.commentInput}>
+            <Input
+              onChangeText={setInput}
+              value={input}
+              placeholder={'Add a comment'}
+              rightIcon={{
+                name: 'done',
+                color: 'black',
+                onPress: onCommentPress,
+              }}
+            />
+          </View>
+        </Modal>
       ) : null}
     </Pressable>
   );
@@ -76,5 +134,15 @@ const styles = StyleSheet.create({
   commentsContainer: {
     marginTop: 12,
     zIndex: 2,
+  },
+  commentInput: {
+    flexDirection: 'row',
+  },
+  commentContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  commentsText: {
+    color: 'black',
   },
 });

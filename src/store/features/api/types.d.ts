@@ -3,7 +3,7 @@ interface Article {
     id: string;
     name: string;
   };
-  auth: string | null;
+  author: string | null;
   title: string;
   description: string;
   url: string;

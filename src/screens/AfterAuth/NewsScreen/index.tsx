@@ -19,6 +19,7 @@ const NewsScreen = ({}: Props) => {
     <FlatList
       data={data?.articles}
       renderItem={renderItem}
+      contentContainerStyle={styles.list}
       ListHeaderComponent={
         <Button title={'Sign out'} onPress={() => auth().signOut()} />
       }
@@ -28,4 +29,8 @@ const NewsScreen = ({}: Props) => {
 
 export default NewsScreen;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  list: {
+    flexGrow: 1,
+  },
+});
